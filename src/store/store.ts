@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import currentWetherSliceReducer from "./slices/currentWetherSlice";
-import { buildGetDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
-import { serialize } from "v8";
+
 const rootReducer = combineReducers({
   currentWetherSliceReducer,
 });

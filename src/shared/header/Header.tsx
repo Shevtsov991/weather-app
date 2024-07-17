@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import s from "./Header.module.scss";
 import { GlobalSvgSelector } from "../../assets/icons/global/globalSvgSelector";
 import Select, { StylesConfig } from "react-select";
 import { useTheme } from "../../hooks/useTheme";
-import ChangeCssRootVariables from "../../model/ChangeCssRootVariables";
+
 import { Theme } from "../../template/data";
+import { useCity } from "../../hooks/useCity";
+import { storage } from "../../model/Storage";
 
 type Props = {};
 
 export const Header = (props: Props) => {
   const theme = useTheme();
-  // const [theme, SetThem] = useState("light");
+  const city = useCity();
 
-  const options = [
-    { value: "city_1", label: "Санкт-петербург" },
-    { value: "city_2", label: "Москва" },
-    { value: "city_3", label: "Купино" },
-  ];
   const colorStyles: StylesConfig = {
     control: (styles, state) => ({
       ...styles,
@@ -45,10 +42,27 @@ export const Header = (props: Props) => {
         theme.theme === "light" ? "rgba(0, 0, 0, 1)" : "rgba(255, 255, 255, 1)",
     }),
   };
+  const options = [
+    { value: "Saint-Petersburg", label: "Санкт-петербург", id: 0 },
+    { value: "Moscow", label: "Москва", id: 1 },
+    { value: "Kupino", label: "Купино", id: 2 },
+  ];
+
   const changeThem = () => {
     theme.changeTheme(theme.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT);
   };
 
+  const changeCity = (event: any) => {
+    city.changeCity(event.value);
+  };
+  const cityName: string = storage.getItem("City");
+  const activeEl = options.find((el) => el.value === cityName);
+  let id: number = 0;
+  if (activeEl != undefined) {
+    id = activeEl.id;
+  }
+
+  const cangeSelectorVal = () => {};
   return (
     <header className={s.header}>
       <div className={s.wrapper}>
@@ -62,9 +76,10 @@ export const Header = (props: Props) => {
           <GlobalSvgSelector id="change-them" />
         </div>
         <Select
-          defaultValue={options[2]}
+          defaultValue={options[id]}
           options={options}
           styles={colorStyles}
+          onChange={(event) => changeCity(event)}
         />
       </div>
     </header>

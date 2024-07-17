@@ -1,11 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IInitialState, IWeather } from "../../template/data";
+import {
+  ICurrentWeather,
+  IInitialState,
+  IWeatherForecast,
+} from "../../template/data";
 import { AxiosResponse } from "axios";
 
 const initialState: IInitialState = {
   weather: {
-    main: { temp: 0, temp_max: 0, temp_min: 0 },
-    name: "",
+    current: {
+      cloud: 0,
+      condition: {
+        code: 0,
+        text: "",
+        icon: "",
+      },
+      pressure_mb: 0,
+      temp_c: 0,
+      feelslike_c: 0,
+      wind_dir: "",
+      wind_kph: 0,
+      precip_mm: 0,
+      gust_kph: 0,
+    },
+    location: {
+      localtime: "",
+      name: "",
+    },
   },
   isLoading: false,
   responce: {
@@ -23,7 +44,7 @@ export const currentWetherSlice = createSlice({
     },
     fetchCurrentWetherSuccess(
       state,
-      action: PayloadAction<AxiosResponse<IWeather>>
+      action: PayloadAction<AxiosResponse<ICurrentWeather>>
     ) {
       state.weather = action.payload.data;
       state.isLoading = false;
@@ -34,7 +55,7 @@ export const currentWetherSlice = createSlice({
     },
     fetchCurrentWetherError(
       state,
-      action: PayloadAction<AxiosResponse<IWeather>>
+      action: PayloadAction<AxiosResponse<ICurrentWeather>>
     ) {
       state.isLoading = false;
       state.responce = {

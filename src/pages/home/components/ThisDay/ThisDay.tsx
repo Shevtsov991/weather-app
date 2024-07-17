@@ -1,10 +1,10 @@
 import React from "react";
 import s from "./ThisDay.module.scss";
 import { GlobalSvgSelector } from "../../../../assets/icons/global/globalSvgSelector";
-import { IWeather } from "../../../../template/data";
+import { ICurrentWeather } from "../../../../template/data";
 
 type Props = {
-  weather: IWeather;
+  weather: ICurrentWeather;
 };
 
 export const ThisDay = ({ weather }: Props) => {
@@ -12,17 +12,19 @@ export const ThisDay = ({ weather }: Props) => {
     <section className={s.this__day}>
       <div className={s.top__block}>
         <div className={s.top__block_wrapper}>
-          <div className={s.this__temp}>{Math.floor(weather.main.temp)}°</div>
+          <div className={s.this__temp}>
+            {Math.floor(weather.current.temp_c)}°
+          </div>
           <div className={s.this__day_name}>Сегодня</div>
         </div>
         <GlobalSvgSelector id="sun" />
       </div>
       <div className={s.bottom__block}>
         <div className={s.this__time}>
-          Время: <span>21:54</span>
+          Время: <span>{weather.location.localtime.slice(10)}</span>
         </div>
         <div className={s.this__city}>
-          Город: <span>Санкт-Петербург</span>
+          Город: <span>{weather.location.name}</span>
         </div>
       </div>
     </section>

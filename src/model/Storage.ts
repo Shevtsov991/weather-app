@@ -1,7 +1,7 @@
 import { Theme } from "../template/data";
 
 export const storage = {
-  setItem: (name: string, item: Theme) => {
+  setItem: (name: string, item: Theme | string) => {
     localStorage.setItem(name, JSON.stringify(item));
   },
   getItem: (name: string) => {
