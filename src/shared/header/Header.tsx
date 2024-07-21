@@ -62,7 +62,6 @@ export const Header = (props: Props) => {
     id = activeEl.id;
   }
 
-  const cangeSelectorVal = () => {};
   return (
     <header className={s.header}>
       <div className={s.wrapper}>

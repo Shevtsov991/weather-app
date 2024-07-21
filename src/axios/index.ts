@@ -6,7 +6,11 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   config.url =
-    config.url + "&lang=RU" + "&key=" + process.env.REACT_APP_API_KEY;
+    config.url +
+    "&days=14" +
+    "&lang=RU" +
+    "&key=" +
+    process.env.REACT_APP_API_KEY;
 
   return config;
 });

@@ -39,6 +39,10 @@
     background-color: $light-background;
     box-shadow: $box-shadow;
     border-radius: 50%;
+    img {
+      width: 38px;
+      height: 38px;
+    }
   }
   .indicator__name {
     color: $base-color;

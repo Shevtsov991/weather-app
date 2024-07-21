@@ -6,8 +6,8 @@ import { Days } from "./Days/Days";
 import { useCastomDispatch, useCastomSelector } from "../../../hooks/store";
 import { fetchCurrentWether } from "../../../store/thunks/fetchCurrentWeather";
 import { currentWetherData } from "../../../store/selectors";
-import { ICurrentWeather } from "../../../template/data";
 import { useCity } from "../../../hooks/useCity";
+import { TabsProvider } from "../../../provider/tabsProvider";
 type Props = {};
 
 export const Home = (props: Props) => {
@@ -24,12 +24,14 @@ export const Home = (props: Props) => {
   }, [city]);
 
   return (
-    <div className={s.home}>
-      <div className={s.wrapper}>
-        <ThisDay weather={weather} />
-        <ThisDayInfo weather={weather} />
+    <TabsProvider>
+      <div className={s.home}>
+        <div className={s.wrapper}>
+          <ThisDay weather={weather} />
+          <ThisDayInfo weather={weather} />
+        </div>
+        <Days />
       </div>
-      <Days />
-    </div>
+    </TabsProvider>
   );
 };

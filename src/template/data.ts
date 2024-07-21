@@ -18,17 +18,20 @@ export interface IDaysInfo {
 export interface tabVal {
   tab: string;
 }
-// export enum City {
-//   SaintPetersburg = "Saint-Petersburg",
-//   Moscow = "Moscow",
-//   Kupino = "Kupino",
-// }
+export interface ItabsProvider {
+  children: ReactNode;
+}
+
 export interface ICityProvider {
   children: ReactNode;
 }
 export interface ICityContext {
   city: string;
   changeCity: (city: string) => void;
+}
+export interface ItabsContext {
+  tab: string;
+  changeTabs: (tabs: string) => void;
 }
 
 export enum Theme {
@@ -44,8 +47,8 @@ export interface IThemeProvider {
   children: ReactNode;
 }
 
-export interface IInitialState {
-  weather: ICurrentWeather;
+export interface IInitialStateForecastWeather {
+  weather: IWeatherForecast;
   isLoading: boolean;
   responce: IResponce;
 }
@@ -54,6 +57,12 @@ export interface IResponce {
   status: number;
   message: string;
 }
+
+export interface ICondition {
+  code: number;
+  text: string;
+  icon: string;
+}
 export interface IDateInfo {
   date: string;
   day: {
@@ -61,21 +70,21 @@ export interface IDateInfo {
     mintemp_c: number;
     avgtemp_c: number;
     maxwind_kph: number;
+    condition: {
+      code: number;
+      icon: string;
+      text: string;
+    };
   };
 }
 export interface IWeatherForecast {
-  forecast: {
-    forecastday: Array<IDateInfo>;
-  };
-  location: {
-    name: string;
-    localtime: string;
-  };
+  forecastday: Array<IDateInfo>;
 }
-export interface ICondition {
-  code: number;
-  text: string;
-  icon: string;
+
+export interface IInitialStateCurrentWeather {
+  weather: ICurrentWeather;
+  isLoading: boolean;
+  responce: IResponce;
 }
 
 export interface ICurrentWeather {
@@ -90,6 +99,7 @@ export interface ICurrentWeather {
     precip_mm: number;
     gust_kph: number;
   };
+  forecast: IWeatherForecast;
   location: {
     localtime: string;
     name: string;

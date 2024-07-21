@@ -1,76 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import s from "./Days.module.scss";
-import { IDaysInfo } from "../../../../template/data";
+import { IDateInfo } from "../../../../template/data";
 import { Card } from "./Card";
 import { Tabs } from "./Tabs";
+import { useCastomSelector } from "../../../../hooks/store";
+import { currentWetherData } from "../../../../store/selectors";
+import { useTabs } from "../../../../hooks/useTabs";
 
 type Props = {};
 
 export const Days = (props: Props) => {
-  const days: IDaysInfo[] = [
-    {
-      day: "Сегодня",
-      day_info: "28 авг",
-      icon_id: "cloudy",
-      tem_day: "+18",
-      temp_night: "+15",
-      info: "cloudy",
-    },
-    {
-      day: "Сегодня",
-      day_info: "29 авг",
-      icon_id: "rain",
-      tem_day: "+18",
-      temp_night: "+15",
-      info: "rain",
-    },
-    {
-      day: "Сегодня",
-      day_info: "30 авг",
-      icon_id: "light rain and sunshine",
-      tem_day: "+18",
-      temp_night: "+15",
-      info: "light",
-    },
-    {
-      day: "Сегодня",
-      day_info: "31 авг",
-      icon_id: "light rain",
-      tem_day: "+18",
-      temp_night: "+15",
-      info: "light rain",
-    },
-    {
-      day: "Сегодня",
-      day_info: "32 авг",
-      icon_id: "clear",
-      tem_day: "+18",
-      temp_night: "+15",
-      info: "Небольшой дождь и солнце",
-    },
-    {
-      day: "Сегодня",
-      day_info: "33 авг",
-      icon_id: "cloudy",
-      tem_day: "+18",
-      temp_night: "+15",
-      info: "Облачно",
-    },
-    {
-      day: "Сегодня",
-      day_info: "34 авг",
-      icon_id: "cloudy",
-      tem_day: "+18",
-      temp_night: "+15",
-      info: "cloudy",
-    },
-  ];
+  const { weather } = useCastomSelector(currentWetherData);
+  const tab = useTabs();
+  const days: IDateInfo[] = weather.forecast.forecastday;
+
+  let daysNumbers: number = 7;
+  switch (tab.tab) {
+    case "На неделю":
+      daysNumbers = 7;
+      break;
+    case "На 10 дней":
+      daysNumbers = 10;
+      break;
+    case "На 14 дней":
+      daysNumbers = 14;
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <section className={s.days}>
       <Tabs />
       <div className={s.card__wrapper}>
-        {days.map((el: IDaysInfo) => (
-          <Card el={el} key={el.day_info} />
+        {days.slice(0, daysNumbers).map((el: IDateInfo) => (
+          <Card el={el} key={el.date} />
         ))}
       </div>
     </section>

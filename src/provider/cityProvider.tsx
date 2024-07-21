@@ -5,7 +5,7 @@ import { storage } from "../model/Storage";
 import { CityContext } from "../context/CityContext";
 
 export const CityProvider = ({ children, ...props }: ICityProvider) => {
-  const [city, setCity] = useState<string>("Moscow");
+  const [city, setCity] = useState<string>("Saint-Petersburg");
 
   let Defaultcity = storage.getItem("City");
   useEffect(() => {
